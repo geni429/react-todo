@@ -5,11 +5,9 @@ import expandButtonOff from './res/expand-button-off.png';
 const ToDoInput = () =>
   <InputWrapper>
     <ExpendButtonWrapper>
-      <ExpendButton>
-        <ExpendButtonImg src={expandButtonOff} />
-      </ExpendButton>
+      <ExpendButtonImg src={expandButtonOff} />
     </ExpendButtonWrapper>
-    <Input />
+    <Input placeholder='What needs to be done?' />
   </InputWrapper>
 
 export default ToDoInput;
