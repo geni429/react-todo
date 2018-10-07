@@ -9,19 +9,12 @@ export const InputWrapper = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 `
-export const ExpendButtonWrapper = styled.div`
+export const CheckAllButtonWrapper = styled.div`
   position: relative;
   width: 35px;
   height: 30px;
 `
-export const ExpendButton = styled.button`
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  background: none;
-`
-export const ExpendButtonImg = styled.img`
+export const CheckAllButtonImg = styled.img`
   position: absolute;
   top: 55%;
   left: 50%;
