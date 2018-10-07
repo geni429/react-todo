@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "jsx": "react",
+    "types": ["node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "baseUrl": "src",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "paths": {
+      "@containers/*": ["containers/*"],
+      "@components/*": ["components/*"],
+      "@styled/*": ["styled/*"]
+    },
+    "typeRoots": [
+      "/node_modules/@types",
+      "@types"
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
