@@ -13,7 +13,8 @@
     "paths": {
       "@containers/*": ["containers/*"],
       "@components/*": ["components/*"],
-      "@styled/*": ["styled/*"]
+      "@styled/*": ["styled/*"],
+      "@modules/*": ["modules/*"]
     },
     "typeRoots": [
       "/node_modules/@types",

@@ -38,9 +38,10 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
-      '@styled': path.resolve(__dirname, 'src/styled/'),
+      '@styled': path.resolve(__dirname, 'src/styled'),
       '@components': path.resolve(__dirname, 'src/components'),
-      '@containers': path.resolve(__dirname, 'src/containers')
+      '@containers': path.resolve(__dirname, 'src/containers'),
+      '@modules': path.resolve(__dirname, 'src/modules')
     }
   },
   plugins: [

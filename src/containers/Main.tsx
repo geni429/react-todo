@@ -1,14 +1,62 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, ActionCreator, Dispatch } from 'redux';
+import _ from 'lodash';
+import * as todoActionCreators from '@modules/todo/actionCreators';
+import * as todoActions from '@modules/todo/actions'
 import { ToDoInput } from '@components/Main';
 import { Header, Container, Footer, Link } from '@styled/Main/Main';
+import { RootState } from '@modules/index';
+// import { StoreState } from '@modules/index';
 
-class Main extends Component {
+const mapStateToProps = (state: RootState) => ({
+  todoList: state.todo.todoList
+});
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  todoActionCreators: bindActionCreators(todoActionCreators, dispatch)
+});
+
+interface Props {
+  todoList: Array<Task>;
+  todoActionCreators: typeof todoActionCreators;
+}
+interface State {
+  todo: string;
+}
+
+class Main extends Component<Props, State> {
+  state = {
+    todo: ''
+  }
+
+  inputToDo = (event: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({
+      todo: event.currentTarget.value
+    });
+  }
+
+  addToDo = (event: React.KeyboardEvent): void => {
+    if (event.keyCode === 13) {
+      this.props.todoActionCreators.addToDo({
+        id: `${this.state.todo}_${new Date().getTime()}`,
+        todo: this.state.todo,
+        isComplete: false
+      });
+      this.setState({
+        todo: ''
+      });
+    }
+  }
+
   render() {
     return (
       <Fragment>
         <Container>
           <Header>todos</Header>
-          <ToDoInput />
+          <ToDoInput
+            value={this.state.todo}
+            onChange={this.inputToDo}
+            onEnter={this.addToDo} />
         </Container>
         <Footer>
           Double-click to edit a todo
@@ -22,4 +70,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
