@@ -6,6 +6,8 @@ export const InputWrapper = styled.div`
   width: 100%;
   height: 50px;
   padding: 8px;
+  margin-bottom: 1px;
+  background: #fff;
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 `

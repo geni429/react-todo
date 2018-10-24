@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, ActionCreator, Dispatch } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import _ from 'lodash';
 import * as todoActionCreators from '@modules/todo/actionCreators';
-import * as todoActions from '@modules/todo/actions'
-import { ToDoInput } from '@components/Main';
+import { ToDoInput, ToDoCard } from '@components/Main';
 import { Header, Container, Footer, Link } from '@styled/Main/Main';
 import { RootState } from '@modules/index';
-// import { StoreState } from '@modules/index';
 
 const mapStateToProps = (state: RootState) => ({
   todoList: state.todo.todoList
@@ -48,6 +46,10 @@ class Main extends Component<Props, State> {
     }
   }
 
+  checkToDo = (): void => {
+
+  }
+
   render() {
     return (
       <Fragment>
@@ -57,6 +59,12 @@ class Main extends Component<Props, State> {
             value={this.state.todo}
             onChange={this.inputToDo}
             onEnter={this.addToDo} />
+          {this.props.todoList.map(todo =>
+            <ToDoCard
+              key={todo.id}
+              info={todo}
+              onComplete={() => {}} />
+          )}
         </Container>
         <Footer>
           Double-click to edit a todo

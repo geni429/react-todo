@@ -1,6 +1,8 @@
 import React from 'react';
 import { InputWrapper, Input, CheckAllButtonWrapper, CheckAllButtonImg } from '@styled/Main/ToDoInput';
 import checkAllButtonChecked from './res/check-all-button-checked.png';
+import checkComplete from './res/check_complete.png';
+import checkNotComplete from './res/check_not_complete.png';
 
 interface Props {
   value: string;
