@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardWrapper, Todo, CheckTodoStateImageContainer, CheckTodoStateImage, DeleteButton } from '@styled/Main/TodoCard';
+import { CardWrapper, Todo, SetTodoStateImageContainer, SetTodoStateImage, DeleteButton } from '@styled/Main/TodoCard';
 
 interface Props {
   info: Task;
@@ -8,13 +8,13 @@ interface Props {
 
 const TodoCard: React.SFC<Props> = props =>
   <CardWrapper>
-    <CheckTodoStateImageContainer>
-      <CheckTodoStateImage
+    <SetTodoStateImageContainer>
+      <SetTodoStateImage
         id={`${props.info.id}`}
         alt={`${props.info.isComplete}`}
         onClick={props.setTodoState}
         isComplete={props.info.isComplete} />
-    </CheckTodoStateImageContainer>
+    </SetTodoStateImageContainer>
     <Todo>{props.info.todo}</Todo>
     <DeleteButton id={props.info.id} />
   </CardWrapper>

@@ -28,12 +28,12 @@ export const Todo = styled.div`
   font-weight: 100;
   word-break: break-all;
 `
-export const CheckTodoStateImageContainer = styled.div`
+export const SetTodoStateImageContainer = styled.div`
   position: relative;
   width: 40px;
   height: 40px;
 `
-export const CheckTodoStateImage = styled.img`
+export const SetTodoStateImage = styled.img`
   position: absolute;
   margin: auto;
   width: 30px;
