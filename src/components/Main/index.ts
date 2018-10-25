@@ -1,2 +1,2 @@
-export { default as ToDoInput } from './TodoInput';
-export { default as ToDoCard } from './ToDoCard';
+export { default as TodoInput } from './TodoInput';
+export { default as TodoCard } from './TodoCard';

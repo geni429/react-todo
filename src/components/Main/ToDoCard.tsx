@@ -1,18 +1,22 @@
 import React from 'react';
-import { CardWrapper, ToDo, CompleteCheckImageContainer, CompleteCheckImage, CompleteCheckBox, DeleteButton } from '@styled/Main/ToDoCard';
+import { CardWrapper, Todo, CheckTodoStateImageContainer, CheckTodoStateImage, DeleteButton } from '@styled/Main/TodoCard';
 
 interface Props {
   info: Task;
-  onComplete(event): void;
+  setTodoState(event): void;
 }
 
-const ToDoCard: React.SFC<Props> = props =>
+const TodoCard: React.SFC<Props> = props =>
   <CardWrapper>
-    <CompleteCheckImageContainer>
-      <CompleteCheckImage />
-    </CompleteCheckImageContainer>
-    <ToDo>{props.info.todo}</ToDo>
+    <CheckTodoStateImageContainer>
+      <CheckTodoStateImage
+        id={`${props.info.id}`}
+        alt={`${props.info.isComplete}`}
+        onClick={props.setTodoState}
+        isComplete={props.info.isComplete} />
+    </CheckTodoStateImageContainer>
+    <Todo>{props.info.todo}</Todo>
     <DeleteButton id={props.info.id} />
   </CardWrapper>
 
-export default ToDoCard;
+export default TodoCard;

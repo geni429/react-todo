@@ -1,8 +1,6 @@
 import React from 'react';
-import { InputWrapper, Input, CheckAllButtonWrapper, CheckAllButtonImg } from '@styled/Main/ToDoInput';
+import { InputWrapper, Input, CheckAllButtonWrapper, CheckAllButtonImg } from '@styled/Main/TodoInput';
 import checkAllButtonChecked from './res/check-all-button-checked.png';
-import checkComplete from './res/check_complete.png';
-import checkNotComplete from './res/check_not_complete.png';
 
 interface Props {
   value: string;
@@ -10,7 +8,7 @@ interface Props {
   onEnter(event: React.KeyboardEvent): void;
 }
 
-const ToDoInput: React.SFC<Props> = props =>
+const TodoInput: React.SFC<Props> = props =>
   <InputWrapper>
     <CheckAllButtonWrapper>
       <CheckAllButtonImg src={checkAllButtonChecked} />
@@ -22,4 +20,4 @@ const ToDoInput: React.SFC<Props> = props =>
       onKeyDown={props.onEnter} />
   </InputWrapper>
 
-export default ToDoInput;
+export default TodoInput;

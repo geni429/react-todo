@@ -1,8 +1,8 @@
 import { createStore, combineReducers, Store } from 'redux';
-import todo, { ToDoReducerState } from './todo';
+import todo, { TodoReducerState } from './todo';
 
 export interface RootState {
-  todo: ToDoReducerState;
+  todo: TodoReducerState;
 }
 
 const RootReducer = combineReducers({

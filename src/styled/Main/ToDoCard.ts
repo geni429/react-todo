@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import checkComplete from '@components/Main/res/check_complete.png';
+import completedTodo from '@components/Main/res/completed_todo.png';
+import activeTodo from '@components/Main/res/active_todo.png';
+
+interface CheckTodoState {
+  isComplete: boolean;
+}
 
 export const CardWrapper = styled.div`
   display: flex;
@@ -13,7 +18,7 @@ export const CardWrapper = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 `
-export const ToDo = styled.div`
+export const Todo = styled.div`
   display: flex;
   align-items: center;
   width: calc(100% - 100px);
@@ -23,21 +28,24 @@ export const ToDo = styled.div`
   font-weight: 100;
   word-break: break-all;
 `
-export const CompleteCheckImageContainer = styled.div`
+export const CheckTodoStateImageContainer = styled.div`
   position: relative;
   width: 40px;
   height: 40px;
 `
-export const CompleteCheckImage = styled.img`
+export const CheckTodoStateImage = styled.img`
   position: absolute;
   margin: auto;
   width: 30px;
   height: 30px;
-  top: -100%;
-  right: -100%;
-  bottom: -100%;
-  left: -100%;
-  content: url("http://localhost:3000/${checkComplete}");
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  ${(props: CheckTodoState) =>
+      props.isComplete
+      ? `content: url("http://localhost:3000/${completedTodo}");`
+      : `content: url("http://localhost:3000/${activeTodo}");` }
 `
 export const CompleteCheckBox = styled.input.attrs({
   type: 'checkbox'

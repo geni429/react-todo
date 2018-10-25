@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import _ from 'lodash';
 import * as todoActionCreators from '@modules/todo/actionCreators';
-import { ToDoInput, ToDoCard } from '@components/Main';
+import { TodoCard, TodoInput  } from '@components/Main';
 import { Header, Container, Footer, Link } from '@styled/Main/Main';
 import { RootState } from '@modules/index';
 
@@ -35,7 +35,7 @@ class Main extends Component<Props, State> {
 
   addToDo = (event: React.KeyboardEvent): void => {
     if (event.keyCode === 13) {
-      this.props.todoActionCreators.addToDo({
+      this.props.todoActionCreators.addTodo({
         id: `${this.state.todo}_${new Date().getTime()}`,
         todo: this.state.todo,
         isComplete: false
@@ -46,24 +46,29 @@ class Main extends Component<Props, State> {
     }
   }
 
-  checkToDo = (): void => {
-
+  setTodoState = (event: React.FormEvent<HTMLInputElement>) => {
+    const id = event.currentTarget.id;
+    if (event.currentTarget.alt === 'true')
+      this.props.todoActionCreators.cancleCompletedTodo(id);
+    else
+      this.props.todoActionCreators.completeTodo(id);
   }
 
   render() {
+    console.log(this.props.todoList);
     return (
       <Fragment>
         <Container>
           <Header>todos</Header>
-          <ToDoInput
+          <TodoInput
             value={this.state.todo}
             onChange={this.inputToDo}
             onEnter={this.addToDo} />
           {this.props.todoList.map(todo =>
-            <ToDoCard
+            <TodoCard
               key={todo.id}
               info={todo}
-              onComplete={() => {}} />
+              setTodoState={this.setTodoState} />
           )}
         </Container>
         <Footer>

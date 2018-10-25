@@ -18,7 +18,9 @@
     },
     "typeRoots": [
       "/node_modules/@types",
-      "@types"
+      "@types",
+      "@types/actions.d.ts",
+      "@types/objects.d.ts"
     ]
   },
   "include": [
