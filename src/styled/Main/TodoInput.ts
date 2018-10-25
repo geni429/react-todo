@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: 100%;
   height: 50px;
   padding: 8px;
@@ -11,12 +12,26 @@ export const InputWrapper = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 `
-export const CheckAllButtonWrapper = styled.div`
+export const SelectAllButtonWrapper = styled.div`
   position: relative;
   width: 35px;
   height: 30px;
 `
-export const CheckAllButtonImg = styled.img`
+export const SelectAllButton = styled.button`
+  transform: rotate(90deg);
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: rgb(180, 180, 180);
+  background: none;
+  border: 0;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+export const SelectAllButtonImg = styled.img`
   position: absolute;
   top: 55%;
   left: 50%;

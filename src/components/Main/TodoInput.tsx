@@ -1,6 +1,5 @@
 import React from 'react';
-import { InputWrapper, Input, CheckAllButtonWrapper, CheckAllButtonImg } from '@styled/Main/TodoInput';
-import checkAllButtonChecked from './res/check-all-button-checked.png';
+import { InputWrapper, Input, SelectAllButton } from '@styled/Main/TodoInput';
 
 interface Props {
   value: string;
@@ -10,9 +9,7 @@ interface Props {
 
 const TodoInput: React.SFC<Props> = props =>
   <InputWrapper>
-    <CheckAllButtonWrapper>
-      <CheckAllButtonImg src={checkAllButtonChecked} />
-    </CheckAllButtonWrapper>
+    <SelectAllButton>〉</SelectAllButton>
     <Input
       placeholder='What needs to be done?'
       value={props.value}
