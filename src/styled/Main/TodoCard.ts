@@ -17,6 +17,12 @@ export const CardWrapper = styled.div`
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    & > button {
+      opacity: 1;
+    }
+  }
 `
 export const Todo = styled.div`
   display: flex;
@@ -43,9 +49,10 @@ export const SetTodoStateImage = styled.img`
   transform: translate(-50%, -50%);
 
   ${(props: CheckTodoState) =>
-      props.isComplete
-      ? `content: url("http://localhost:3000/${completedTodo}");`
-      : `content: url("http://localhost:3000/${activeTodo}");` }
+    props.isComplete
+    ? `content: url("http://localhost:3000/${completedTodo}");`
+    : `content: url("http://localhost:3000/${activeTodo}");`
+  }
 `
 export const CompleteCheckBox = styled.input.attrs({
   type: 'checkbox'
@@ -58,8 +65,17 @@ export const CompleteCheckBox = styled.input.attrs({
 export const DeleteButton = styled.button`
   width: 40px;
   height: 40px;
+  font-size: 15px;
+  font-weight: lighter;
+  color: #ff686882;
+  border: 0;
+  outline: none;
+  background: none;
+  opacity: 0;
+  transition: .3s;
 
   &:hover {
-    cursor: pointer;
+    font-weight: bold;
+    color: #ff6868;
   }
 `

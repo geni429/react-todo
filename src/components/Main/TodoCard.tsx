@@ -16,7 +16,7 @@ const TodoCard: React.SFC<Props> = props =>
         isComplete={props.info.isComplete} />
     </SetTodoStateImageContainer>
     <Todo>{props.info.todo}</Todo>
-    <DeleteButton id={props.info.id} />
+    <DeleteButton id={props.info.id}>X</DeleteButton>
   </CardWrapper>
 
 export default TodoCard;
