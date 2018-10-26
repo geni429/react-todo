@@ -17,11 +17,9 @@ const todo = (state: TodoReducerState = initialState, action: TodoActions): Todo
         ]
       }
     case REMOVE_TODO:
-      return {
-        todoList: [
-          ...state.todoList
-        ].splice(state.todoList.findIndex((task: Task) => task.id === action.payload.todo), 1)
-      }
+      const todoList = [...state.todoList];
+      todoList.splice(state.todoList.findIndex((task: Task) => task.id === action.payload), 1);
+      return { todoList };
     case ALTER_TODO:
       return {
         todoList: state.todoList.map((task: Task) =>

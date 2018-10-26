@@ -62,7 +62,7 @@ export const CompleteCheckBox = styled.input.attrs({
   margin: 4px 0 0;
   padding: 0;
 `
-export const DeleteButton = styled.button`
+export const RemoveButton = styled.button`
   width: 40px;
   height: 40px;
   font-size: 15px;

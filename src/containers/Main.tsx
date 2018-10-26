@@ -27,13 +27,13 @@ class Main extends Component<Props, State> {
     todo: ''
   }
 
-  inputToDo = (event: React.FormEvent<HTMLInputElement>): void => {
+  inputTodo = (event: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
       todo: event.currentTarget.value
     });
   }
 
-  addToDo = (event: React.KeyboardEvent): void => {
+  addTodo = (event: React.KeyboardEvent): void => {
     if (event.keyCode === 13) {
       this.props.todoActionCreators.addTodo({
         id: `${this.state.todo}_${new Date().getTime()}`,
@@ -54,21 +54,26 @@ class Main extends Component<Props, State> {
       this.props.todoActionCreators.completeTodo(id);
   }
 
+  removeTodo = (event: React.FormEvent<HTMLInputElement>) => {
+    const id = event.currentTarget.id;
+    this.props.todoActionCreators.removeTodo(id);
+  }
+
   render() {
-    console.log(this.props.todoList);
     return (
       <Fragment>
         <Container>
           <Header>todos</Header>
           <TodoInput
             value={this.state.todo}
-            onChange={this.inputToDo}
-            onEnter={this.addToDo} />
+            onChange={this.inputTodo}
+            onEnter={this.addTodo} />
           {this.props.todoList.map(todo =>
             <TodoCard
               key={todo.id}
               info={todo}
-              setTodoState={this.setTodoState} />
+              setTodoState={this.setTodoState}
+              removeTodo={this.removeTodo} />
           )}
         </Container>
         <Footer>
