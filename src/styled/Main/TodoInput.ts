@@ -48,6 +48,7 @@ export const Input = styled.input`
   font-size: 24px;
   font-weight: 100;
   outline: none;
+  readonly: true;
 
   &::placeholder {
     color: rgb(235, 235, 235);

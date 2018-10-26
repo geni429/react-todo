@@ -1,5 +1,5 @@
 import { createStore, Store } from 'redux';
-import { ADD_TODO, REMOVE_TODO, ALTER_TODO, COMPLETE_TODO, COMPLETE_ALL_TODOS, CANCLE_COMPLETED_TODO, CANCLE_COMPLETED_ALL_TODOS  } from './actions';
+import { ADD_TODO, REMOVE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL_TODOS, CANCLE_COMPLETED_TODO, CANCLE_COMPLETED_ALL_TODOS  } from './actions';
 import { TodoActions } from './actionCreators';
 
 export interface TodoReducerState {
@@ -20,7 +20,7 @@ const todo = (state: TodoReducerState = initialState, action: TodoActions): Todo
       const todoList = [...state.todoList];
       todoList.splice(state.todoList.findIndex((task: Task) => task.id === action.payload), 1);
       return { todoList };
-    case ALTER_TODO:
+    case EDIT_TODO:
       return {
         todoList: state.todoList.map((task: Task) =>
           task.id === action.payload.id ? action.payload : task)

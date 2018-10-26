@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import _ from 'lodash';
@@ -20,12 +20,19 @@ interface Props {
 }
 interface State {
   todo: string;
+  editTargetId: string;
+  editTargetValue: string;
+  editTargetIsComplete: boolean;
 }
 
 class Main extends Component<Props, State> {
   state = {
-    todo: ''
+    todo: '',
+    editTargetId: '',
+    editTargetValue: '',
+    editTargetIsComplete: false
   }
+  todoRef = React.createRef();
 
   inputTodo = (event: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
@@ -46,7 +53,7 @@ class Main extends Component<Props, State> {
     }
   }
 
-  setTodoState = (event: React.FormEvent<HTMLInputElement>) => {
+  setTodoState = (event: React.FormEvent<HTMLInputElement>): void => {
     const id = event.currentTarget.id;
     if (event.currentTarget.alt === 'true')
       this.props.todoActionCreators.cancleCompletedTodo(id);
@@ -54,7 +61,7 @@ class Main extends Component<Props, State> {
       this.props.todoActionCreators.completeTodo(id);
   }
 
-  removeTodo = (event: React.FormEvent<HTMLInputElement>) => {
+  removeTodo = (event: React.FormEvent<HTMLInputElement>): void => {
     const id = event.currentTarget.id;
     this.props.todoActionCreators.removeTodo(id);
   }
@@ -63,12 +70,41 @@ class Main extends Component<Props, State> {
     return !this.props.todoList.some(todo => !todo.isComplete);
   }
 
-  setAllTodos = () => {
+  setAllTodos = (): void => {
     if (this.props.todoList.length) {
       if (this.isAllTodosCompleted())
         this.props.todoActionCreators.cancleCompletedAllTodos();
       else
         this.props.todoActionCreators.completeAllTodos();
+    }
+  }
+
+  changeToEditTodo = (prevInfo: Task): void => {
+    this.setState({
+      editTargetId: prevInfo.id,
+      editTargetValue: prevInfo.todo,
+      editTargetIsComplete: prevInfo.isComplete
+    });
+  }
+
+  inputToEditTodo = (event: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({
+      editTargetValue: event.currentTarget.value
+    });
+  }
+
+  editTodo = (event: React.KeyboardEvent): void => {
+    if (event.keyCode === 13) {
+      this.props.todoActionCreators.editTodo({
+        id: this.state.editTargetId,
+        todo: this.state.editTargetValue,
+        isComplete: this.state.editTargetIsComplete
+      });
+      this.setState({
+        editTargetId: '',
+        editTargetValue: '',
+        editTargetIsComplete: false
+      });
     }
   }
 
@@ -84,13 +120,23 @@ class Main extends Component<Props, State> {
             allTodosLength={this.props.todoList.length}
             allTodosState={this.isAllTodosCompleted()}
             setAllTodos={this.setAllTodos} />
-          {this.props.todoList.map(todo =>
-            <TodoCard
-              key={todo.id}
-              info={todo}
-              setTodoState={this.setTodoState}
-              removeTodo={this.removeTodo} />
-          )}
+          {
+            this.props.todoList.map(todo => {
+              return (
+                <TodoCard
+                  key={todo.id}
+                  info={todo}
+                  todoRef={this.todoRef}
+                  setTodoState={this.setTodoState}
+                  removeTodo={this.removeTodo}
+                  isEdit={todo.id === this.state.editTargetId}
+                  changeToEditTodo={this.changeToEditTodo}
+                  inputToEditTodo={this.inputToEditTodo}
+                  editTodo={this.editTodo}
+                  editValue={this.state.editTargetValue}/>
+              );
+            })
+          }
         </Container>
         <Footer>
           Double-click to edit a todo

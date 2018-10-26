@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import completedTodo from '@components/Main/res/completed_todo.png';
 import activeTodo from '@components/Main/res/active_todo.png';
 
-interface CheckTodoState {
+interface CheckTodoStateProps {
   isComplete: boolean;
+}
+interface EditTodoProps {
+  isEdit: boolean;
 }
 
 export const CardWrapper = styled.div`
@@ -24,15 +27,32 @@ export const CardWrapper = styled.div`
     }
   }
 `
-export const Todo = styled.div`
+export const Todo = styled.input`
   display: flex;
   align-items: center;
+  position: relative;
   width: calc(100% - 100px);
   margin-left: 10px;
   margin-right: 10px;
+  border: 0;
+  outline: none;
   font-size: 24px;
   font-weight: 100;
   word-break: break-all;
+`
+export const EditTodo = styled.input`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: 100;
+
+  ${
+    (props: EditTodoProps) =>
+      props.isEdit
+      ? 'display: inline;'
+      : 'display: none;'
+  }
 `
 export const SetTodoStateImageContainer = styled.div`
   position: relative;
@@ -48,7 +68,7 @@ export const SetTodoStateImage = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  ${(props: CheckTodoState) =>
+  ${(props: CheckTodoStateProps) =>
     props.isComplete
     ? `content: url("http://localhost:3000/${completedTodo}");`
     : `content: url("http://localhost:3000/${activeTodo}");`
