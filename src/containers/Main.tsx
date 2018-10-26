@@ -59,6 +59,19 @@ class Main extends Component<Props, State> {
     this.props.todoActionCreators.removeTodo(id);
   }
 
+  isAllTodosCompleted = (): boolean => {
+    return !this.props.todoList.some(todo => !todo.isComplete);
+  }
+
+  setAllTodos = () => {
+    if (this.props.todoList.length) {
+      if (this.isAllTodosCompleted())
+        this.props.todoActionCreators.cancleCompletedAllTodos();
+      else
+        this.props.todoActionCreators.completeAllTodos();
+    }
+  }
+
   render() {
     return (
       <Fragment>
@@ -67,7 +80,10 @@ class Main extends Component<Props, State> {
           <TodoInput
             value={this.state.todo}
             onChange={this.inputTodo}
-            onEnter={this.addTodo} />
+            onEnter={this.addTodo}
+            allTodosLength={this.props.todoList.length}
+            allTodosState={this.isAllTodosCompleted()}
+            setAllTodos={this.setAllTodos} />
           {this.props.todoList.map(todo =>
             <TodoCard
               key={todo.id}

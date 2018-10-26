@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+interface SetAllTodosButtonProps {
+  allTodosLength: number;
+  state: boolean;
+}
+
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -12,35 +17,27 @@ export const InputWrapper = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 `
-export const SelectAllButtonWrapper = styled.div`
-  position: relative;
-  width: 35px;
-  height: 30px;
-`
-export const SelectAllButton = styled.button`
+export const SetAllTodosButton = styled.button`
   transform: rotate(90deg);
   width: 30px;
   height: 30px;
   font-size: 20px;
-  color: rgb(180, 180, 180);
   background: none;
   border: 0;
   outline: none;
 
-  &:hover {
-    cursor: pointer;
+  ${
+    (props: SetAllTodosButtonProps) => {
+      if (props.allTodosLength)
+        return !props.state ? 'color: rgb(230, 230, 230);' : 'color: rgb(180, 180, 180);';
+    }
   }
-`
-export const SelectAllButtonImg = styled.img`
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
 
-  &:hover {
-    cursor: pointer;
+  ${
+    (props: SetAllTodosButtonProps) =>
+      props.allTodosLength === 0
+      ? 'opacity: 0; &:hover { cursor: default }'
+      : '&:hover { cursor: pointer }'
   }
 `
 export const Input = styled.input`
