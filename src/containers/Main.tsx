@@ -53,16 +53,14 @@ class Main extends Component<Props, State> {
     }
   }
 
-  setTodoState = (event: React.FormEvent<HTMLInputElement>): void => {
-    const id = event.currentTarget.id;
+  setTodoState = (event: React.FormEvent<HTMLInputElement>, id: string): void => {
     if (event.currentTarget.alt === 'true')
       this.props.todoActionCreators.cancleCompletedTodo(id);
     else
       this.props.todoActionCreators.completeTodo(id);
   }
 
-  removeTodo = (event: React.FormEvent<HTMLInputElement>): void => {
-    const id = event.currentTarget.id;
+  removeTodo = (event: React.FormEvent<HTMLInputElement>, id: string): void => {
     this.props.todoActionCreators.removeTodo(id);
   }
 

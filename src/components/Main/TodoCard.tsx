@@ -5,8 +5,8 @@ import { prototype } from 'stream';
 interface Props {
   info: Task;
   todoRef: any;
-  setTodoState(event): void;
-  removeTodo(event): void;
+  setTodoState(event, id): void;
+  removeTodo(event, id): void;
   isEdit: boolean;
   changeToEditTodo(prevInfo): void;
   inputToEditTodo(event): void;
@@ -19,9 +19,8 @@ const TodoCard: React.SFC<Props> = props => {
     <CardWrapper>
       <SetTodoStateImageContainer>
         <SetTodoStateImage
-          id={props.info.id}
           alt={`${props.info.isComplete}`}
-          onClick={props.setTodoState}
+          onClick={(event) => props.setTodoState(event, props.info.id)}
           isComplete={props.info.isComplete} />
       </SetTodoStateImageContainer>
       <Todo
@@ -30,9 +29,9 @@ const TodoCard: React.SFC<Props> = props => {
         onDoubleClick={() => props.changeToEditTodo(props.info)}
         onChange={props.inputToEditTodo}
         onKeyDown={props.editTodo} />
-      <RemoveButton
-        id={props.info.id}
-        onClick={props.removeTodo}>X</RemoveButton>
+      <RemoveButton onClick={(event) => props.removeTodo(event, props.info.id)}>
+        X
+      </RemoveButton>
     </CardWrapper>
   );
 }
