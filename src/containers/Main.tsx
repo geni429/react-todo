@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import _ from 'lodash';
 import * as todoActionCreators from '@modules/todo/actionCreators';
-import { TodoCard, TodoInput  } from '@components/Main';
+import { TodoCard, TodoInput, TodoListController } from '@components/Main';
 import { Header, Container, Footer, Link } from '@styled/Main/Main';
 import { RootState } from '@modules/index';
 
@@ -62,6 +62,10 @@ class Main extends Component<Props, State> {
 
   removeTodo = (event: React.FormEvent<HTMLInputElement>, id: string): void => {
     this.props.todoActionCreators.removeTodo(id);
+  }
+
+  clearCompletedTodos = (): void => {
+    this.props.todoActionCreators.clearCompletedTodos();
   }
 
   isAllTodosCompleted = (): boolean => {
@@ -151,6 +155,10 @@ class Main extends Component<Props, State> {
               );
             })
           }
+          <TodoListController
+            todoCount={this.props.todoList.length}
+            activeTodoCount={this.props.todoList.filter(todo => !todo.isComplete).length}
+            clearCompletedTodos={this.clearCompletedTodos}  />
         </Container>
         <Footer>
           Double-click to edit a todo
