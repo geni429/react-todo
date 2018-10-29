@@ -78,11 +78,13 @@ class Main extends Component<Props, State> {
   }
 
   changeToEditTodo = (prevInfo: Task): void => {
-    this.setState({
-      editTargetId: prevInfo.id,
-      editTargetValue: prevInfo.todo,
-      editTargetIsComplete: prevInfo.isComplete
-    });
+    if (this.state.editTargetId === '') {
+      this.setState({
+        editTargetId: prevInfo.id,
+        editTargetValue: prevInfo.todo,
+        editTargetIsComplete: prevInfo.isComplete
+      });
+    }
   }
 
   inputToEditTodo = (event: React.FormEvent<HTMLInputElement>): void => {
@@ -104,6 +106,19 @@ class Main extends Component<Props, State> {
         editTargetIsComplete: false
       });
     }
+  }
+
+  editTodoWhenBlur = (): void => {
+    this.props.todoActionCreators.editTodo({
+      id: this.state.editTargetId,
+      todo: this.state.editTargetValue,
+      isComplete: this.state.editTargetIsComplete
+    });
+    this.setState({
+      editTargetId: '',
+      editTargetValue: '',
+      editTargetIsComplete: false
+    });
   }
 
   render() {
@@ -131,6 +146,7 @@ class Main extends Component<Props, State> {
                   changeToEditTodo={this.changeToEditTodo}
                   inputToEditTodo={this.inputToEditTodo}
                   editTodo={this.editTodo}
+                  editTodoWhenBlur={this.editTodoWhenBlur}
                   editValue={this.state.editTargetValue}/>
               );
             })

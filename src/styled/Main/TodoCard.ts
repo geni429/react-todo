@@ -4,8 +4,9 @@ import activeTodo from '@components/Main/res/active_todo.png';
 
 interface CheckTodoStateProps {
   isComplete: boolean;
+  isEdit: boolean;
 }
-interface EditTodoProps {
+interface RealtedWithEditProps {
   isEdit: boolean;
 }
 
@@ -14,7 +15,8 @@ export const CardWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 5px;
+  height: 50px;
+  padding: 0 5px;
   border-bottom: 1px solid #ddd;
   border-top: 0;
   background: #fff;
@@ -32,26 +34,20 @@ export const Todo = styled.input`
   align-items: center;
   position: relative;
   width: calc(100% - 100px);
+  height: calc(100% - 4px);
+  padding-left: 5px;
   margin-left: 10px;
   margin-right: 10px;
-  border: 0;
   outline: none;
   font-size: 24px;
   font-weight: 100;
   word-break: break-all;
-`
-export const EditTodo = styled.input`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  font-size: 24px;
-  font-weight: 100;
 
   ${
-    (props: EditTodoProps) =>
+    (props: RealtedWithEditProps) =>
       props.isEdit
-      ? 'display: inline;'
-      : 'display: none;'
+      ? 'border: 1px solid #ddd'
+      : 'border: 0'
   }
 `
 export const SetTodoStateImageContainer = styled.div`
@@ -61,26 +57,26 @@ export const SetTodoStateImageContainer = styled.div`
 `
 export const SetTodoStateImage = styled.img`
   position: absolute;
-  margin: auto;
-  width: 30px;
-  height: 30px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  margin: auto;
 
-  ${(props: CheckTodoStateProps) =>
-    props.isComplete
-    ? `content: url("http://localhost:3000/${completedTodo}");`
-    : `content: url("http://localhost:3000/${activeTodo}");`
+  ${
+    (props: CheckTodoStateProps) => {
+      if (!props.isEdit) {
+        if (props.isComplete) {
+          return `content: url("http://localhost:3000/${completedTodo}");`
+        } else {
+          return `content: url("http://localhost:3000/${activeTodo}");`
+        }
+      } else {
+        return 'display: none';
+      }
+    }
   }
-`
-export const CompleteCheckBox = styled.input.attrs({
-  type: 'checkbox'
-})`
-  display: none;
-  box-sizing: border-box;
-  margin: 4px 0 0;
-  padding: 0;
 `
 export const RemoveButton = styled.button`
   width: 40px;
@@ -97,5 +93,12 @@ export const RemoveButton = styled.button`
   &:hover {
     font-weight: bold;
     color: #ff6868;
+  }
+
+  ${
+    (props: RealtedWithEditProps) =>
+      props.isEdit
+      ? 'display: none'
+      : 'display: inline-block'
   }
 `
