@@ -22,7 +22,7 @@ export const TodoListControllerWrapper = styled.div`
       : 'display: block;'
   }
 `
-export const TodoListControllerWrapperStyleDiv = TodoListControllerWrapper.extend`
+export const TodoListControllerWrapperStyleDiv = styled(TodoListControllerWrapper)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
