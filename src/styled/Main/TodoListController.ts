@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 
 interface TodoListControllerProps {
   todoCount?: number;
@@ -8,6 +8,9 @@ interface StyleDivProps {
 }
 interface ClearCompletedButtonProps {
   completedTodoCount: number;
+}
+interface FilterByStateProps {
+  selected: boolean;
 }
 
 export const TodoListControllerWrapper = styled.div`
@@ -56,21 +59,26 @@ export const FilterByStateWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
-export const FilterByStateButton = styled.button`
+export const FilterByStateButton = styled<FilterByStateProps, 'button'>('button')`
   height: 25px;
   margin: 0 5px;
   padding: 0 5px;
-  border: 1px solid #fff;
   outline: none;
   background: none;
+  border-radius: 4px;
   font-size: 14px;
   color: rgb(170, 170, 170);
   font-weight: 100;
 
   &:hover {
-    border: 1px solid #ffb6b682;
-    border-radius: 2px;
     cursor: pointer;
+  }
+
+  ${
+    (props: FilterByStateProps) =>
+      props.selected
+      ? `border: 1px solid #fd78789e;`
+      : 'border: 1px solid #fff; &:hover { border: 1px solid #ffb6b682; }'
   }
 `
 export const ClearCompletedButton = styled.div`

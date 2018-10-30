@@ -23,6 +23,7 @@ interface State {
   editTargetId: string;
   editTargetValue: string;
   editTargetIsComplete: boolean;
+  filter: number;
 }
 
 class Main extends Component<Props, State> {
@@ -30,7 +31,8 @@ class Main extends Component<Props, State> {
     todo: '',
     editTargetId: '',
     editTargetValue: '',
-    editTargetIsComplete: false
+    editTargetIsComplete: false,
+    filter: 0
   }
   todoRef = React.createRef();
 
@@ -125,7 +127,18 @@ class Main extends Component<Props, State> {
     });
   }
 
+  changeFilter = (event: React.FormEvent<HTMLInputElement>): void => {
+    const filter = parseInt(event.currentTarget.value);
+    this.setState({ filter });
+  }
+
   render() {
+    const filteredTodoList = this.state.filter === 0
+      ? this.props.todoList
+      : this.state.filter === 1
+        ? this.props.todoList.filter(todo => !todo.isComplete)
+        : this.props.todoList.filter(todo => todo.isComplete)
+
     return (
       <Fragment>
         <Container>
@@ -138,7 +151,7 @@ class Main extends Component<Props, State> {
             allTodosState={this.isAllTodosCompleted()}
             setAllTodos={this.setAllTodos} />
           {
-            this.props.todoList.map(todo => {
+            filteredTodoList.map(todo => {
               return (
                 <TodoCard
                   key={todo.id}
@@ -151,14 +164,16 @@ class Main extends Component<Props, State> {
                   inputToEditTodo={this.inputToEditTodo}
                   editTodo={this.editTodo}
                   editTodoWhenBlur={this.editTodoWhenBlur}
-                  editValue={this.state.editTargetValue}/>
+                  editValue={this.state.editTargetValue} />
               );
             })
           }
           <TodoListController
             todoCount={this.props.todoList.length}
             activeTodoCount={this.props.todoList.filter(todo => !todo.isComplete).length}
-            clearCompletedTodos={this.clearCompletedTodos}  />
+            clearCompletedTodos={this.clearCompletedTodos}
+            filter={this.state.filter}
+            changeFilter={this.changeFilter}  />
         </Container>
         <Footer>
           Double-click to edit a todo

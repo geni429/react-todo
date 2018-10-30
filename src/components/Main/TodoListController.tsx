@@ -5,6 +5,8 @@ interface Props {
   todoCount: number;
   activeTodoCount: number;
   clearCompletedTodos(): void;
+  filter: number;
+  changeFilter(event): void;
 }
 
 const TodoListController: SFC<Props> = props =>
@@ -12,9 +14,9 @@ const TodoListController: SFC<Props> = props =>
     <TodoListControllerWrapperStyleDiv index={0}>
       <RemainTodoCount>{props.activeTodoCount} items left</RemainTodoCount>
       <FilterByStateWrapper>
-        <FilterByStateButton>All</FilterByStateButton>
-        <FilterByStateButton>Active</FilterByStateButton>
-        <FilterByStateButton>Completed</FilterByStateButton>
+        <FilterByStateButton onClick={props.changeFilter} value={0} selected={props.filter === 0}>All</FilterByStateButton>
+        <FilterByStateButton onClick={props.changeFilter} value={1} selected={props.filter === 1}>Active</FilterByStateButton>
+        <FilterByStateButton onClick={props.changeFilter} value={2}selected={props.filter === 2}>Completed</FilterByStateButton>
       </FilterByStateWrapper>
       <ClearCompletedButton
         completedTodoCount={props.todoCount - props.activeTodoCount}
