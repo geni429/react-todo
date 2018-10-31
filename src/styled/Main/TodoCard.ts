@@ -2,21 +2,12 @@ import styled from 'styled-components';
 import completedTodo from '@components/Main/res/completed_todo.png';
 import activeTodo from '@components/Main/res/active_todo.png';
 
-interface CheckTodoStateProps {
-  isComplete: boolean;
-  isEdit: boolean;
-}
-interface RealtedWithEditProps {
-  isEdit: boolean;
-}
-
 export const CardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 50px;
-  padding: 0 5px;
+  padding: 2px 5px;
   border-bottom: 1px solid #ddd;
   border-top: 0;
   background: #fff;
@@ -29,25 +20,42 @@ export const CardWrapper = styled.div`
     }
   }
 `
-export const Todo = styled.input`
-  display: flex;
-  align-items: center;
+export const TodoWrapper = styled.div`
   position: relative;
-  width: calc(100% - 100px);
-  height: calc(100% - 4px);
-  padding-left: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-  outline: none;
+  width: 100%;
+  height: 100%;
+`
+export const Todo = styled<{ isEdit: boolean; }, 'div'>('div')`
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
   font-size: 24px;
   font-weight: 100;
   word-break: break-all;
 
   ${
-    (props: RealtedWithEditProps) =>
+    props =>
       props.isEdit
-      ? 'border: 1px solid #ddd'
-      : 'border: 0'
+      ? 'display: none;'
+      : 'display: flex;'
+  }
+`
+export const EditTodoInput = styled<{ isEdit: boolean; }, 'input'>('input')`
+  width: 100%;
+  height: 50px;
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 24px;
+  font-weight: 100;
+  box-sizing: border-box;
+
+  ${
+    props =>
+      props.isEdit
+      ? 'display: inline;'
+      : 'display: none;'
   }
 `
 export const SetTodoStateImageContainer = styled.div`
@@ -55,7 +63,7 @@ export const SetTodoStateImageContainer = styled.div`
   width: 40px;
   height: 40px;
 `
-export const SetTodoStateImage = styled.img`
+export const SetTodoStateImage = styled<{ isEdit: boolean; isComplete: boolean; }, 'img'>('img')`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -65,20 +73,19 @@ export const SetTodoStateImage = styled.img`
   margin: auto;
 
   ${
-    (props: CheckTodoStateProps) => {
+    props => {
       if (!props.isEdit) {
-        if (props.isComplete) {
-          return `content: url("http://localhost:3000/${completedTodo}");`
-        } else {
-          return `content: url("http://localhost:3000/${activeTodo}");`
-        }
+        if (props.isComplete)
+          return `content: url("http://localhost:3000/${completedTodo}");`;
+        else
+          return `content: url("http://localhost:3000/${activeTodo}");`;
       } else {
         return 'display: none';
       }
     }
   }
 `
-export const RemoveButton = styled.button`
+export const RemoveButton = styled<{ isEdit: boolean; }, 'button'>('button')`
   width: 40px;
   height: 40px;
   font-size: 15px;
@@ -96,7 +103,7 @@ export const RemoveButton = styled.button`
   }
 
   ${
-    (props: RealtedWithEditProps) =>
+    props =>
       props.isEdit
       ? 'display: none'
       : 'display: inline-block'

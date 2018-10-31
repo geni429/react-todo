@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardWrapper, Todo, SetTodoStateImageContainer, SetTodoStateImage, RemoveButton } from '@styled/Main/TodoCard';
+import { CardWrapper, Todo, SetTodoStateImageContainer, SetTodoStateImage, RemoveButton, TodoWrapper, EditTodoInput } from '@styled/Main/TodoCard';
 
 interface Props {
   info: Task;
@@ -24,14 +24,17 @@ const TodoCard: React.SFC<Props> = props => {
           isEdit={props.isEdit}
           isComplete={props.info.isComplete} />
       </SetTodoStateImageContainer>
-      <Todo
-        readOnly={!props.isEdit}
-        isEdit={props.isEdit}
-        value={props.isEdit ? props.editValue : props.info.todo}
-        onDoubleClick={() => props.changeToEditTodo(props.info)}
-        onChange={props.inputToEditTodo}
-        onKeyDown={props.editTodo}
-        onBlur={props.editTodoWhenBlur} />
+      <TodoWrapper>
+        <Todo
+          isEdit={props.isEdit}
+          onDoubleClick={() => props.changeToEditTodo(props.info)}>{props.info.todo}</Todo>
+        <EditTodoInput
+          isEdit={props.isEdit}
+          value={props.isEdit ? props.editValue : props.info.todo}
+          onChange={props.inputToEditTodo}
+          onKeyDown={props.editTodo}
+          onBlur={props.editTodoWhenBlur} />
+      </TodoWrapper>
       <RemoveButton
         onClick={(event) => props.removeTodo(event, props.info.id)}
         isEdit={props.isEdit}>
